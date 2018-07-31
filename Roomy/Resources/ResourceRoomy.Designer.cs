@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Le champ {0} est obligatoire..
+        /// </summary>
+        public static string champ_obligatoire {
+            get {
+                return ResourceManager.GetString("champ_obligatoire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Adresse mail.
         /// </summary>
         public static string email {

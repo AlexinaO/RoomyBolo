@@ -9,12 +9,12 @@
 
 @using (Html.BeginForm("Create", "Users", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
 {
-
+    
     <div class="form-group">
-        @Html.LabelFor(m => m.Email)
-        <label class="col-sm-2 control-label" for="exampleInputEmail">Email address</label>
+        @Html.LabelFor(m => m.Email, new { @class = "col-sm-2 control-label" })
         <div class="col-sm-10">
-            <input type="email" name="email" class="form-control" id="exampleInputEmail" placeholder="Enter email">
+            @Html.EditorFor(m => m.Email, null, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
         </div>
     </div>
 

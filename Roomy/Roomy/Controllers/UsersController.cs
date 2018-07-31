@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Roomy.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -29,8 +30,16 @@ namespace Roomy.Controllers
         }
         
         [HttpPost]
-        public ActionResult Create(string email)
+        public ActionResult Create(User model)
         {
+            if (ModelState.IsValid)
+            {
+                //enregistre en bdd
+            }
+
+            User u = new User();
+            u.BirthDate = null;
+
             return View();
         }
 
