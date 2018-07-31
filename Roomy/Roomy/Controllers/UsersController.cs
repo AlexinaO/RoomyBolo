@@ -37,9 +37,6 @@ namespace Roomy.Controllers
                 //enregistre en bdd
             }
 
-            User u = new User();
-            u.BirthDate = null;
-
             return View();
         }
 
