@@ -16,7 +16,7 @@ namespace Roomy.Controllers
             /*List<string> liste = new List<string> { "toto", "titi", "tata" };
             liste.FindAll(delegate (string s)
             {
-                return s.Contains("a");
+                return s.Contains("bonjour steve");
             });
 
             liste.FindAll(s => s.Contains("a"));*/
