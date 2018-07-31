@@ -35,8 +35,8 @@
                     <li class="active"><a href="~/">Accueil <span class="sr-only">(current)</span></a></li>
                     <li>
                         @*<a href="~/a-propos-de">A propos de</a>
-                        @Html.ActionLink("A propos de", "About", "Home")
-                        <a href="@Url.Action("About", "Home")">A propos de</a>*@
+                            @Html.ActionLink("A propos de", "About", "Home")
+                            <a href="@Url.Action("About", "Home")">A propos de</a>*@
                         <a href="@Url.RouteUrl("AboutRoute")">A propos de</a>
                     </li>
                     <li>
@@ -83,9 +83,11 @@
 
     </div>
     <footer class="bg-info">
-        &copy2018 Roomy
+        &copy;2018 Roomy
     </footer>
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    @RenderSection("SectionScripts", false)
+
 </body>
 </html>

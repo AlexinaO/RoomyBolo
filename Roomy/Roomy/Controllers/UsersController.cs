@@ -13,7 +13,7 @@ namespace Roomy.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            
+
             /*List<string> liste = new List<string> { "toto", "titi", "tata" };
             liste.FindAll(delegate (string s)
             {
@@ -25,15 +25,26 @@ namespace Roomy.Controllers
 
             //blabla
 
-
+            ModelState.Remove("Email");
             return View();
         }
         
         [HttpPost]
         public ActionResult Create(User model)
         {
+            //ModelState.Remove("Email");
+            /*if (model.BirthDate > DateTime.Now.AddYears(-18))
+                ModelState.AddModelError("BirthDate", "Trop jeune.");*/
+
+            //if (model.IsMail && string.IsNullOrWhiteSpace(model.Email))
+            //    ModelState.AddModelError("Email", "erreur...");
+
+
+
             if (ModelState.IsValid)
             {
+
+
                 //enregistre en bdd
             }
 

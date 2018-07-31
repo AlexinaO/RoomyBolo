@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "_LayoutForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        @RenderSection("SectionTitle", true)
+    </div>
+    <div class="panel-body">
+        @RenderBody()
+    </div>
+</div>
+
+@section SectionScripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    @RenderSection("SectionScripts", false)
+}
