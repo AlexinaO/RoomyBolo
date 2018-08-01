@@ -1,4 +1,5 @@
-﻿using Roomy.Models;
+﻿using Roomy.Data;
+using Roomy.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace Roomy.Controllers
 {
     public class UsersController : Controller
     {
+        private RoomyDbContext db = new RoomyDbContext();
+
         // GET: Users/Create
         [HttpGet]
         public ActionResult Create()
@@ -25,13 +28,18 @@ namespace Roomy.Controllers
 
             //blabla
 
-            ModelState.Remove("Email");
+            //ModelState.Remove("Email");
             return View();
         }
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(User model)
         {
+            /*string req = "SELECT * FROM Users WHERE Lastname = @lastname";
+            System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand(req, null);
+            command.Parameters.AddWithValue("@lastname", model.Lastname);*/
+
             //ModelState.Remove("Email");
             /*if (model.BirthDate > DateTime.Now.AddYears(-18))
                 ModelState.AddModelError("BirthDate", "Trop jeune.");*/
@@ -43,12 +51,21 @@ namespace Roomy.Controllers
 
             if (ModelState.IsValid)
             {
-
-
-                //enregistre en bdd
+                //enregistrer en bdd
+                db.Users.Add(model);
+                db.SaveChanges();
+                ViewData["Message"] = $"Utilisateur {model.Firstname} {model.Lastname} enregistré.";
+                //ViewBag.Message = "Utilisateur enregistré.";
+                return View(new User());
             }
+            
+            return View(model);
+        }
 
-            return View();
+        protected override void Dispose(bool disposing)
+        {
+            this.db.Dispose();
+            base.Dispose(disposing);
         }
 
     }

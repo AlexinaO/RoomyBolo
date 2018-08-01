@@ -21,6 +21,8 @@ namespace Roomy.Utils.Validators
         }
         public override bool IsValid(object value)
         {
+            if (value == null)
+                return true;
             if(value is DateTime)
             {
                 return (DateTime)value <= DateTime.Now.AddYears(-this.year);

@@ -2,20 +2,27 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace Roomy.Models
 {
+    //[Table("Utilisateur", Schema = "roomy")]
     public class User
     {
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[Column("UserID", TypeName = "")]
+        public int ID { get; set; }
+
         [Display(Name = "Nom")]
         public string Lastname { get; set; }
 
         [Display(Name = "Prénom")]
         public string Firstname { get; set; }
 
-        public bool IsMail { get; set; }
+        //public bool IsMail { get; set; }
 
         [Required(ErrorMessageResourceName = "champ_obligatoire",
             ErrorMessageResourceType = typeof(Resources.ResourceRoomy))]
@@ -40,6 +47,7 @@ namespace Roomy.Models
         [Display(Name = "Confirmation du mot de passe")]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "La confirmation est incorecte")]
+        [NotMapped]
         public string ConfirmedPassword { get; set; }
 
         [Required(ErrorMessageResourceName = "champ_obligatoire",
@@ -48,6 +56,7 @@ namespace Roomy.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dddd dd MMMM yyyy}")]
         [Major(18, Pays = "France", ErrorMessage = "Vous devez avoir plus de {1} ans en {2}.")]
+        [Column(TypeName = "datetime2")]
         public DateTime BirthDate { get; set; }       
     }
 }
