@@ -62,6 +62,19 @@ namespace Roomy.Controllers
             return View(model);
         }
 
+        public ActionResult List()
+        {
+            var users = db.Users.Where(x => x.Email.Contains(".com"))
+                                .OrderBy(x => x.Lastname);
+
+            /*var users2 = from x in db.Users
+                         where x.Email.Contains(".com")
+                         orderby x.Lastname
+                         select x;*/
+
+            return View(users);
+        }
+
         protected override void Dispose(bool disposing)
         {
             this.db.Dispose();

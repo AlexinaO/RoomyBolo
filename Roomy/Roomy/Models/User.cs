@@ -9,12 +9,12 @@ using System.Web;
 namespace Roomy.Models
 {
     //[Table("Utilisateur", Schema = "roomy")]
-    public class User
+    public class User: BaseModel
     {
         //[Key]
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         //[Column("UserID", TypeName = "")]
-        public int ID { get; set; }
+        //public int ID { get; set; }
 
         [Display(Name = "Nom")]
         public string Lastname { get; set; }
