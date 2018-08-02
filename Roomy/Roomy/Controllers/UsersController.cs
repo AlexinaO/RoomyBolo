@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Roomy.Utils;
 
 namespace Roomy.Controllers
 {
@@ -47,6 +48,8 @@ namespace Roomy.Controllers
             //if (model.IsMail && string.IsNullOrWhiteSpace(model.Email))
             //    ModelState.AddModelError("Email", "erreur...");
 
+            //var resultat = Extentions.FirstDayOfWeek(model.BirthDate);
+            //model.BirthDate.FirstDayOfWeek();
 
 
             if (ModelState.IsValid)

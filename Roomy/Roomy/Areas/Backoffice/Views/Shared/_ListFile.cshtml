@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Roomy.Models.RoomFile>
+
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 thumbnail">
+            @Html.DisplayFile(item)
+
+            
+            <p>@item.Name</p>
+            @if (item.ContentType.Contains("pdf"))
+            {
+                <p>
+                    <a href="@Url.Action("Download", "Rooms", new { id = item.ID })" class="btn btn-info"><i class="glyphicon glyphicon-download-alt"></i>Télécharger</a>
+                </p>
+            }
+        </div>
+
+    }
+
+</div>
+

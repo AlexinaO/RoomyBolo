@@ -1,0 +1,26 @@
+﻿@model Roomy.Areas.Backoffice.Models.AddFileViewModel
+
+@using (Html.BeginForm("AddFile", "Rooms", FormMethod.Post, new { @enctype="multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.RoomID)
+
+    <div class="form-horizontal">
+    <h4>Ajouter un fichier</h4>
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(model => model.FileUpload, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*@Html.EditorFor(model => model.RoomID, new { htmlAttributes = new { @class = "form-control" } })*@
+            <input type="file" name="FileUpload" />
+            @Html.ValidationMessageFor(model => model.FileUpload, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Ajouter" class="btn btn-warning" />
+        </div>
+    </div>
+    </div>
+}

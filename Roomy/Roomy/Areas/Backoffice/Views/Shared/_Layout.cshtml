@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var user = Session["USER_BO"] as User;
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -36,6 +40,17 @@
                         </ul>
                     </li>
                 </ul>
+                @if (user != null)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <span style="color: white;">
+                                Bonjour @user.Firstname @user.Lastname
+                            </span>
+                            <a href="@Url.Action("Logout", "Authentication", new { area = "Backoffice" })" class="btn btn-danger"><i class="glyphicon glyphicon-log-out"></i></a>
+                        </li>
+                    </ul>
+                }
             </div>
         </div>
     </div>

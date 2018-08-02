@@ -9,9 +9,13 @@ using System.Web;
 using System.Web.Mvc;
 using Roomy.Data;
 using Roomy.Models;
+using Roomy.Areas.Backoffice.Models;
+using System.IO;
+using Roomy.Filters;
 
 namespace Roomy.Areas.Backoffice.Controllers
 {
+    [AuthenticationFilter]
     public class RoomsController : Controller
     {
         private RoomyDbContext db = new RoomyDbContext();
@@ -56,7 +60,7 @@ namespace Roomy.Areas.Backoffice.Controllers
             {
                 db.Rooms.Add(room);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", new { id = room.ID });
             }
 
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", room.CategoryID);
@@ -70,7 +74,8 @@ namespace Roomy.Areas.Backoffice.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Room room = await db.Rooms.FindAsync(id);
+            Room room = await db.Rooms.Include(x => x.RoomFiles).SingleOrDefaultAsync(x => x.ID == id);
+                //.FindAsync(id);
             if (room == null)
             {
                 return HttpNotFound();
@@ -122,6 +127,33 @@ namespace Roomy.Areas.Backoffice.Controllers
             db.Entry(room).State = EntityState.Modified;
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddFile(AddFileViewModel model)
+        {
+            var roomFile = new RoomFile();
+            roomFile.Name = model.FileUpload.FileName;
+            roomFile.ContentType = model.FileUpload.ContentType;
+            roomFile.RoomID = model.RoomID;
+
+            using (var reader = new BinaryReader(model.FileUpload.InputStream))
+            {
+                roomFile.Content = reader.ReadBytes(model.FileUpload.ContentLength);
+            }
+
+            db.RoomFiles.Add(roomFile);
+            await db.SaveChangesAsync();
+
+            return RedirectToAction("Edit", new { id = model.RoomID });
+        }
+
+        public async Task<ActionResult> Download(int id)
+        {
+            var file = await db.RoomFiles.FindAsync(id);
+
+            return File(file.Content, file.ContentType, file.Name);
         }
 
         protected override void Dispose(bool disposing)
